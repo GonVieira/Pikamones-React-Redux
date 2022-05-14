@@ -6,30 +6,67 @@ import {
   CardContainerBody,
   CardContainerFooter,
 } from "../cardContainer/styledComponents/style";
+import { useDispatch, useSelector } from "react-redux";
 
-const CardContainer = () => {
+const CardContainer = (optionSelected) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(9);
-  const [pokemonList, setPokemonList] = useState([]);
+  const pikamones = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const [numberOfPikamones] = useState(100);
 
   useEffect(() => {
     setCurrentPage(1);
 
-    async function getPokemons() {
-      let pokemonArr = [];
-      for (let i = 1; i <= 55; i++) {
+    const getAllPikamones = async () => {
+      let pikamonesList = [];
+      for (let i = 1; i <= numberOfPikamones; i++) {
         let res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}/`);
-        pokemonArr.push(res.data);
+        pikamonesList.push(res.data);
       }
-      setPokemonList(pokemonArr);
+      dispatch({ type: "GET_PIKAMONES", payload: pikamonesList });
+    };
+
+    const getAllFilteredPikamones = async () => {
+      let pikamonesList = [];
+      for (let i = 1; i <= numberOfPikamones; i++) {
+        let res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}/`);
+        pikamonesList.push(res.data);
+      }
+
+      let filteredPikamons = [];
+      for (let i = 0; i < pikamonesList.length; i++) {
+        if (
+          pikamonesList[i].types[0].type.name === optionSelected.optionSelected
+        ) {
+          filteredPikamons.push(pikamonesList[i]);
+        }
+        if (pikamonesList[i].types[1] !== undefined) {
+          if (
+            pikamonesList[i].types[1].type.name ===
+            optionSelected.optionSelected
+          ) {
+            filteredPikamons.push(pikamonesList[i]);
+          }
+        }
+      }
+      dispatch({ type: "GET_PIKAMONES", payload: filteredPikamons });
+    };
+
+    if (
+      optionSelected.optionSelected === "All" ||
+      optionSelected.optionSelected === undefined
+    ) {
+      getAllPikamones();
+    } else {
+      getAllFilteredPikamones();
     }
-    getPokemons();
-  }, []);
+  }, [optionSelected]);
 
   //GET CURRENT POSTS
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = pokemonList.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = pikamones.slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <>
@@ -43,7 +80,7 @@ const CardContainer = () => {
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           postsPerPage={postsPerPage}
-          totalPosts={pokemonList.length}
+          totalPosts={pikamones.length}
         />
       </CardContainerFooter>
     </>

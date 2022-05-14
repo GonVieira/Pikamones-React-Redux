@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Dropdown from "../../components/dropdown/index.jsx";
 import CardContainer from "../../components/cardContainer/index";
 import {
@@ -9,13 +9,18 @@ import {
 } from "../mainPage/styledComponents/style";
 
 const MainPage = () => {
+  const [optionSelected, setOptionSelected] = useState("All");
+
   return (
     <MainPagePage>
       <MainPageHeader>
-        <Dropdown />
+        <Dropdown
+          optionSelected={optionSelected}
+          setOptionSelected={setOptionSelected}
+        />
       </MainPageHeader>
       <MainPageBody>
-        <CardContainer />
+        <CardContainer optionSelected={optionSelected}/>
       </MainPageBody>
     </MainPagePage>
   );

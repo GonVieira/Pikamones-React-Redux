@@ -13,10 +13,9 @@ import {
   DropdownContentOption,
 } from "./StyledComponents/styled";
 
-const Dropdown = () => {
+const Dropdown = ({ optionSelected, setOptionSelected }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [types, setTypes] = useState([]);
-  const [optionSelected, setOptionSelected] = useState("All");
   const wrapperRef = useRef(null);
 
   const dropDownToggle = () => {
