@@ -1,5 +1,26 @@
 import styled from "styled-components";
 
+const typesColors = {
+  electric: "linear-gradient(to left top, #F7D02C, #f7ce2ca1);",
+  fire: "linear-gradient( to left top, #EE8130, #ee823078);",
+  water: "linear-gradient( to left top, #6390F0, #6390f08c);",
+  ghost: "linear-gradient( to left top, #735797, #73579756);",
+  psychic: "linear-gradient( to left top, #F95587, #f955868e);",
+  grass: "linear-gradient( to left top, #7AC74C, #79c74c8b);",
+  normal: "linear-gradient( to left top, #A8A77A, #a8a77a9c);",
+  fighting: "linear-gradient( to left top, #C22E28, #c22d288d);",
+  flying: "linear-gradient( to left top, #A98FF3, #aa8ff3a9);",
+  poison: "linear-gradient( to left top, #A33EA1, #a33ea190);",
+  ground: "linear-gradient( to left top, #E2BF65, #e2bf6590);",
+  rock: "linear-gradient( to left top, #B6A136, #b6a136a4);",
+  bug: "linear-gradient( to left top, #A6B91A, #a6b91a68);",
+  steel: "linear-gradient( to left top, #B7B7CE, #b7b7ce6b);",
+  ice: "linear-gradient( to left top, #96D9D6, #96d9d68a);",
+  dragon: "linear-gradient( to left top, #6F35FC, #6d35fc90);",
+  dark: "linear-gradient( to left top, #705746, #70574688);",
+  fairy: "linear-gradient( to left top, #D685AD, #d685ad8f);",
+}
+
 export const CardBody = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -10,7 +31,7 @@ export const CardBody = styled.div`
   width: 360px;
   height: 550px;
   border-radius: 5px;
-  background-color: #c88670;
+  background: ${({type}) => {return typesColors[type]}};
 `;
 
 //CARD IMG
@@ -19,13 +40,13 @@ export const CardImgContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
-  width: 80%;
-  height: 43%;
+  min-width: 300px;
+  min-height: 235px;
 `;
 export const CardImg = styled.img`
   justify-self: center;
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 90%;
 `;
 
 //POKEMON CARD NAME
@@ -42,6 +63,7 @@ export const CardTypeContainer = styled.div`
   justify-content: flex-end;
   height: 15%;
   width: 100%;
+  position: relative;
 `;
 export const CardType = styled.div`
   display: flex;

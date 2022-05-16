@@ -48,7 +48,7 @@ const Card = ({ poke }) => {
   }, []);
 
   return (
-    <CardBody>
+    <CardBody type={poke.types[0].type.name}>
       <CardImgContainer>
         <CardImg
           src={

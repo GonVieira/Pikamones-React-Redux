@@ -13,7 +13,8 @@ const CardContainer = (optionSelected) => {
   const [postsPerPage] = useState(9);
   const pikamones = useSelector((state) => state);
   const dispatch = useDispatch();
-  const [numberOfPikamones] = useState(100);
+  const [numberOfPikamones] = useState(151);
+  const [done, setDone] = useState(undefined);
 
   useEffect(() => {
     setCurrentPage(1);
