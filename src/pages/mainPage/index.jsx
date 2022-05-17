@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Dropdown from "../../components/dropdown/index.jsx";
-import CardContainer from "../../components/cardContainer/index";
+const CardContainer = React.lazy(() =>
+  import("../../components/cardContainer/index")
+);
+import gif from "../../assets/mew_gif.gif";
 import {
   MainPagePage,
   MainPageHeader,
@@ -20,7 +23,16 @@ const MainPage = () => {
         />
       </MainPageHeader>
       <MainPageBody>
-        <CardContainer optionSelected={optionSelected}/>
+        <Suspense
+          fallback={
+            <>
+              <h2>LOADING...</h2>
+              <img src={gif} alt="loading..." />
+            </>
+          }
+        >
+          <CardContainer optionSelected={optionSelected} />
+        </Suspense>
       </MainPageBody>
     </MainPagePage>
   );

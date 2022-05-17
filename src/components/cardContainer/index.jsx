@@ -7,34 +7,26 @@ import {
   CardContainerFooter,
 } from "../cardContainer/styledComponents/style";
 import { useDispatch, useSelector } from "react-redux";
+import gif from "../../assets/mew_gif.gif";
 
 const CardContainer = (optionSelected) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(9);
+  const [postsPerPage] = useState(8);
   const pikamones = useSelector((state) => state);
   const dispatch = useDispatch();
-  const [numberOfPikamones] = useState(151);
-  const [done, setDone] = useState(undefined);
+  const [numberOfPikamones] = useState(386);
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
     setCurrentPage(1);
 
-    const getAllPikamones = async () => {
-      let pikamonesList = [];
-      for (let i = 1; i <= numberOfPikamones; i++) {
-        let res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}/`);
-        pikamonesList.push(res.data);
-      }
-      dispatch({ type: "GET_PIKAMONES", payload: pikamonesList });
-    };
-
     const getAllFilteredPikamones = async () => {
+      setDone(false);
       let pikamonesList = [];
       for (let i = 1; i <= numberOfPikamones; i++) {
         let res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}/`);
         pikamonesList.push(res.data);
       }
-
       let filteredPikamons = [];
       for (let i = 0; i < pikamonesList.length; i++) {
         if (
@@ -51,14 +43,17 @@ const CardContainer = (optionSelected) => {
           }
         }
       }
-      dispatch({ type: "GET_PIKAMONES", payload: filteredPikamons });
+      dispatch({ type: "GET_FILTERED_PIKAMONES", payload: filteredPikamons });
+      setDone(true);
     };
 
     if (
       optionSelected.optionSelected === "All" ||
       optionSelected.optionSelected === undefined
     ) {
-      getAllPikamones();
+      setDone(false);
+      dispatch({ type: "GET_ALL_PIKAMONES", payload: pikamones });
+      setTimeout(() => setDone(true), 4000);
     } else {
       getAllFilteredPikamones();
     }
@@ -71,19 +66,28 @@ const CardContainer = (optionSelected) => {
 
   return (
     <>
-      <CardContainerBody>
-        {currentPosts.map((values) => {
-          return <Card poke={values} />;
-        })}
-      </CardContainerBody>
-      <CardContainerFooter>
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          postsPerPage={postsPerPage}
-          totalPosts={pikamones.length}
-        />
-      </CardContainerFooter>
+      {done ? (
+        <>
+          <CardContainerBody>
+            {currentPosts.map((values) => {
+              return <Card poke={values} />;
+            })}
+          </CardContainerBody>
+          <CardContainerFooter>
+            <Pagination
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              postsPerPage={postsPerPage}
+              totalPosts={pikamones.length}
+            />
+          </CardContainerFooter>
+        </>
+      ) : (
+        <>
+          <h1>LOADING...</h1>
+          <img src={gif} alt="loading..." />
+        </>
+      )}
     </>
   );
 };
