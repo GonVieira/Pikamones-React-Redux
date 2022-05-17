@@ -19,7 +19,7 @@ const typesColors = {
   dragon: "linear-gradient( to left top, #6F35FC, #6d35fc90);",
   dark: "linear-gradient( to left top, #705746, #70574688);",
   fairy: "linear-gradient( to left top, #D685AD, #d685ad8f);",
-}
+};
 
 export const CardBody = styled.div`
   display: flex;
@@ -31,8 +31,17 @@ export const CardBody = styled.div`
   width: 360px;
   height: 550px;
   border-radius: 5px;
-  background: ${({type}) => {return typesColors[type]}};
+  background: ${({ type }) => {
+    return typesColors[type];
+  }};
+  box-shadow: 1px 1px rgba(255, 255, 255, 0.567);
+
+  @media (max-width: 400px) {
+    scale: 0.8;
+    margin: 0px;
+  }
 `;
+
 
 //CARD IMG
 export const CardImgContainer = styled.div`
@@ -43,6 +52,7 @@ export const CardImgContainer = styled.div`
   min-width: 300px;
   min-height: 235px;
 `;
+
 export const CardImg = styled.img`
   justify-self: center;
   width: 80%;
@@ -146,6 +156,10 @@ export const SpecialAbilitiesContainer = styled.div`
   padding: 5px;
   line-height: 20px;
   padding: 10px 30px;
+
+  @media (max-width: 400px) {
+    padding: 10px 10px;
+  }
 `;
 //ABILITIES
 export const AbilityDiv = styled.div`

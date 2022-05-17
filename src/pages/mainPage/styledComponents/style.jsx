@@ -14,6 +14,13 @@ export const MainPageBody = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 15px;
+
+  @media (max-width: 400px) {
+    margin: 0px;
+    max-width: 30%;
+    padding: 0px;
+    padding: 0px;
+  }
 `;
 
 export const MainPageHeader = styled.div`
@@ -31,3 +38,23 @@ export const MainPageFooter = styled.div`
   flex-direction: column;
   padding: 15px;
 `;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+`
+
+export const LoadingText = styled.h1`
+  font-size: 20px;
+  color: white;
+`
+
+export const LoadingImg = styled.img`
+  width: 50%;
+  height: 50%;
+`

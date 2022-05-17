@@ -9,6 +9,9 @@ import {
   MainPageHeader,
   MainPageBody,
   MainPageFooter,
+  LoadingContainer,
+  LoadingText,
+  LoadingImg,
 } from "../mainPage/styledComponents/style";
 
 const MainPage = () => {
@@ -25,10 +28,10 @@ const MainPage = () => {
       <MainPageBody>
         <Suspense
           fallback={
-            <>
-              <h2>LOADING...</h2>
-              <img src={gif} alt="loading..." />
-            </>
+            <LoadingContainer>
+              <LoadingText>LOADING...</LoadingText>
+              <LoadingImg src={gif} alt="loading..." />
+            </LoadingContainer>
           }
         >
           <CardContainer optionSelected={optionSelected} />
