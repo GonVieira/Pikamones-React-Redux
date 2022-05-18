@@ -5,13 +5,16 @@ import Pagination from "../pagination/index";
 import {
   CardContainerBody,
   CardContainerFooter,
+  LoadingContainer,
+  LoadingText,
+  LoadingImg,
 } from "../cardContainer/styledComponents/style";
 import { useDispatch, useSelector } from "react-redux";
 import gif from "../../assets/mew_gif.gif";
 
 const CardContainer = (optionSelected) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(8);
+  const [postsPerPage] = useState(9);
   const pikamones = useSelector((state) => state);
   const dispatch = useDispatch();
   const [numberOfPikamones] = useState(386);
@@ -83,10 +86,10 @@ const CardContainer = (optionSelected) => {
           </CardContainerFooter>
         </>
       ) : (
-        <>
-          <h1>LOADING...</h1>
-          <img src={gif} alt="loading..." />
-        </>
+        <LoadingContainer>
+          <LoadingText>LOADING...</LoadingText>
+          <LoadingImg src={gif} alt="loading..." />
+        </LoadingContainer>
       )}
     </>
   );

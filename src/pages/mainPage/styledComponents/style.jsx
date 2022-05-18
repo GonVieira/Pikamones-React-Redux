@@ -17,7 +17,7 @@ export const MainPageBody = styled.div`
 
   @media (max-width: 400px) {
     margin: 0px;
-    max-width: 30%;
+    max-width: 90%;
     padding: 0px;
     padding: 0px;
   }
@@ -55,6 +55,6 @@ export const LoadingText = styled.h1`
 `
 
 export const LoadingImg = styled.img`
-  width: 50%;
-  height: 50%;
+  width: 80%;
+  height: 80%;
 `
