@@ -1,4 +1,16 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const fadeIn = keyframes`
+  0% {
+        transform: scaleY(0)
+    }
+    80% {
+        transform: scaleY(1.1)
+    }
+    100% {
+        transform: scaleY(1)
+    }
+`;
 
 export const DropdownAndTextContainer = styled.div`
   display: flex;
@@ -81,6 +93,7 @@ export const DropdownContentContainer = styled.div`
   transform-origin: top center;
   padding: 5px 15px;
   background-color: #e9e9ed;
+  animation: ${fadeIn} 0.4s ease-in-out;
   cursor: pointer;
 `;
 
@@ -93,10 +106,10 @@ export const DropdownContentOption = styled.button`
   text-transform: capitalize;
   text-align: center;
   cursor: pointer;
-  background-color: ${(props) => props.active ? "black" : "#e9e9ed"};
-  color: ${(props) => props.active ? "white" : "black"};
+  background-color: ${(props) => (props.active ? "black" : "#e9e9ed")};
+  color: ${(props) => (props.active ? "white" : "black")};
 
   &:hover {
-    background-color:${(props) => props.active ? "black" : "#cdcdcd"};
+    background-color: ${(props) => (props.active ? "black" : "#cdcdcd")};
   }
 `;

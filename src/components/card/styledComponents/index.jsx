@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 const typesColors = {
   electric: "linear-gradient(to left top, #F7D02C, #f7ce2ca1);",
   fire: "linear-gradient( to left top, #EE8130, #ee823078);",
@@ -21,6 +22,7 @@ const typesColors = {
   fairy: "linear-gradient( to left top, #D685AD, #d685ad8f);",
 };
 
+
 export const CardBody = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -34,7 +36,6 @@ export const CardBody = styled.div`
   background: ${({ type }) => {
     return typesColors[type];
   }};
-  box-shadow: 1px 1px rgba(255, 255, 255, 0.567);
 
   @media (max-width: 400px) {
     scale: 0.8;

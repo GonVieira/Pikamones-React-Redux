@@ -58,7 +58,10 @@ const CardContainer = (optionSelected) => {
   //GET CURRENT POSTS
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = currentPikamones.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = currentPikamones.slice(
+    indexOfFirstPost,
+    indexOfLastPost
+  );
 
   return (
     <>

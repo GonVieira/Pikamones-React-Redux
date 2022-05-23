@@ -17,7 +17,6 @@ import {
 
 const MainPage = () => {
   const [optionSelected, setOptionSelected] = useState("All");
-  console.log(initialState);
 
   return (
     <MainPagePage>
