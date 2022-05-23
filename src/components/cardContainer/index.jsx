@@ -15,39 +15,32 @@ import gif from "../../assets/mew_gif.gif";
 const CardContainer = (optionSelected) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(9);
-  const pikamones = useSelector((state) => state);
+  const pikamones = useSelector((state) => state.pikamones);
+  const currentPikamones = useSelector((state) => state.currentPikamones);
   const dispatch = useDispatch();
-  const [numberOfPikamones] = useState(386);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
     setCurrentPage(1);
 
-    const getAllFilteredPikamones = async () => {
+    const getAllFilteredPikamones = () => {
       setDone(false);
-      let pikamonesList = [];
-      for (let i = 1; i <= numberOfPikamones; i++) {
-        let res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}/`);
-        pikamonesList.push(res.data);
-      }
+
       let filteredPikamons = [];
-      for (let i = 0; i < pikamonesList.length; i++) {
-        if (
-          pikamonesList[i].types[0].type.name === optionSelected.optionSelected
-        ) {
-          filteredPikamons.push(pikamonesList[i]);
+      for (let i = 0; i < pikamones.length; i++) {
+        if (pikamones[i].types[0].type.name === optionSelected.optionSelected) {
+          filteredPikamons.push(pikamones[i]);
         }
-        if (pikamonesList[i].types[1] !== undefined) {
+        if (pikamones[i].types[1] !== undefined) {
           if (
-            pikamonesList[i].types[1].type.name ===
-            optionSelected.optionSelected
+            pikamones[i].types[1].type.name === optionSelected.optionSelected
           ) {
-            filteredPikamons.push(pikamonesList[i]);
+            filteredPikamons.push(pikamones[i]);
           }
         }
       }
-      dispatch({ type: "GET_FILTERED_PIKAMONES", payload: filteredPikamons });
-      setDone(true);
+      dispatch({ type: "SET_FILTERED_PIKAMONES", payload: filteredPikamons });
+      setTimeout(() => setDone(true), 4000);
     };
 
     if (
@@ -55,7 +48,7 @@ const CardContainer = (optionSelected) => {
       optionSelected.optionSelected === undefined
     ) {
       setDone(false);
-      dispatch({ type: "GET_ALL_PIKAMONES", payload: pikamones });
+      dispatch({ type: "SET_FILTERED_PIKAMONES", payload: pikamones });
       setTimeout(() => setDone(true), 4000);
     } else {
       getAllFilteredPikamones();
@@ -65,7 +58,7 @@ const CardContainer = (optionSelected) => {
   //GET CURRENT POSTS
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = pikamones.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = currentPikamones.slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <>
@@ -81,7 +74,7 @@ const CardContainer = (optionSelected) => {
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
               postsPerPage={postsPerPage}
-              totalPosts={pikamones.length}
+              totalPosts={currentPikamones.length}
             />
           </CardContainerFooter>
         </>

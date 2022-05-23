@@ -4,6 +4,7 @@ const CardContainer = React.lazy(() =>
   import("../../components/cardContainer/index")
 );
 import gif from "../../assets/mew_gif.gif";
+import initialState from "../../redux/reducer/initialState";
 import {
   MainPagePage,
   MainPageHeader,
@@ -16,6 +17,7 @@ import {
 
 const MainPage = () => {
   const [optionSelected, setOptionSelected] = useState("All");
+  console.log(initialState);
 
   return (
     <MainPagePage>

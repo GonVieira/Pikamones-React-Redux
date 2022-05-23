@@ -2,12 +2,8 @@ import initialState from "./initialState";
 
 const pikamoneReducer = (state = initialState, action) => {
   switch (action.type) {
-    
-    case "GET_FILTERED_PIKAMONES":
-      return action.payload;
-
-    case "GET_ALL_PIKAMONES":
-      return initialState;
+    case "SET_FILTERED_PIKAMONES":
+      return { ...state, currentPikamones: action.payload };
 
     default:
       return state;
