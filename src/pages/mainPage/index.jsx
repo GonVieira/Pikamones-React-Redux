@@ -4,12 +4,10 @@ const CardContainer = React.lazy(() =>
   import("../../components/cardContainer/index")
 );
 import gif from "../../assets/mew_gif.gif";
-import initialState from "../../redux/reducer/initialState";
 import {
   MainPagePage,
   MainPageHeader,
   MainPageBody,
-  MainPageFooter,
   LoadingContainer,
   LoadingText,
   LoadingImg,
