@@ -12,9 +12,11 @@ import {
   LoadingText,
   LoadingImg,
 } from "../mainPage/styledComponents/style";
+import { useSelector } from "react-redux";
 
 const MainPage = () => {
   const [optionSelected, setOptionSelected] = useState("All");
+  const pikamones = useSelector((state) => state.pikamones);
 
   return (
     <MainPagePage>
@@ -24,18 +26,25 @@ const MainPage = () => {
           setOptionSelected={setOptionSelected}
         />
       </MainPageHeader>
-      <MainPageBody>
-        <Suspense
-          fallback={
-            <LoadingContainer>
-              <LoadingText>LOADING...</LoadingText>
-              <LoadingImg src={gif} alt="loading..." />
-            </LoadingContainer>
-          }
-        >
-          <CardContainer optionSelected={optionSelected} />
-        </Suspense>
-      </MainPageBody>
+      {pikamones.length < 386 ? (
+        <LoadingContainer>
+          <LoadingText>LOADING...</LoadingText>
+          <LoadingImg src={gif} alt="loading..." />
+        </LoadingContainer>
+      ) : (
+        <MainPageBody>
+          <Suspense
+            fallback={
+              <LoadingContainer>
+                <LoadingText>LOADING...</LoadingText>
+                <LoadingImg src={gif} alt="loading..." />
+              </LoadingContainer>
+            }
+          >
+            <CardContainer optionSelected={optionSelected} />
+          </Suspense>
+        </MainPageBody>
+      )}
     </MainPagePage>
   );
 };
