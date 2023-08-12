@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Dropdown from "../../components/dropdown/index.jsx";
 const CardContainer = React.lazy(() =>
   import("../../components/cardContainer/index")
@@ -17,6 +17,13 @@ import { useSelector } from "react-redux";
 const MainPage = () => {
   const [optionSelected, setOptionSelected] = useState("All");
   const pikamones = useSelector((state) => state.pikamones);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (pikamones.length >= 386) {
+      setIsLoading(false);
+    }
+  }, [pikamones]);
 
   return (
     <MainPagePage>
@@ -26,7 +33,7 @@ const MainPage = () => {
           setOptionSelected={setOptionSelected}
         />
       </MainPageHeader>
-      {pikamones.length < 386 ? (
+      {isLoading ? (
         <LoadingContainer>
           <LoadingText>LOADING...</LoadingText>
           <LoadingImg src={gif} alt="loading..." />
