@@ -44,8 +44,8 @@ export const LoadingContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  width: 40%;
+  height: 40%;
   padding: 10px;
 `
 

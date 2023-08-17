@@ -74,11 +74,12 @@ const Dropdown = ({ optionSelected, setOptionSelected }) => {
         </StyledDropdown>
         {isOpen && (
           <DropdownContentContainer>
-            {types.map((type) => (
+            {types.map((type, index) => (
               <DropdownContentOption
+                key={type + index}
                 onClick={() => {
-                  setOptionSelected(type);
                   dropDownToggle();
+                  setOptionSelected(type);
                 }}
                 active={type === optionSelected}
               >

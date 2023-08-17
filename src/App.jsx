@@ -5,14 +5,13 @@ import store from "./redux/store";
 import { Provider } from "react-redux";
 
 function App() {
+  console.log("Rendering APP.");
+
   return (
-    <>
-      <Provider store={store}>
-        <div className="app">
-          <MainPage />
-        </div>
-      </Provider>
-    </>
+    
+    <div className="app">
+      <MainPage />
+    </div>
   );
 }
 

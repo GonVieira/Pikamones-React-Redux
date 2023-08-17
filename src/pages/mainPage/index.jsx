@@ -4,6 +4,7 @@ const CardContainer = React.lazy(() =>
   import("../../components/cardContainer/index")
 );
 import gif from "../../assets/mew_gif.gif";
+import axios from "axios";
 import {
   MainPagePage,
   MainPageHeader,
@@ -12,18 +13,30 @@ import {
   LoadingText,
   LoadingImg,
 } from "../mainPage/styledComponents/style";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const MainPage = () => {
   const [optionSelected, setOptionSelected] = useState("All");
   const pikamones = useSelector((state) => state.pikamones);
   const [isLoading, setIsLoading] = useState(true);
+  const [pikamonesArray, setPikamonesArray] = useState([]);
+  const dispatch = useDispatch();
+  let numberOfPikamones = 386;
+
+  const populateInitialState = async () => {
+    for (let i = 1; i <= numberOfPikamones; i++) {
+      let res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}/`);
+      pikamonesArray.push(res.data);
+    }
+    dispatch({ type: "POPULATE_INITIAL_STATE", payload: pikamonesArray });
+    setIsLoading(false);
+  };
 
   useEffect(() => {
-    if (pikamones.length >= 386) {
-      setIsLoading(false);
+    if (pikamones.length < numberOfPikamones) {
+      populateInitialState();
     }
-  }, [pikamones]);
+  }, []);
 
   return (
     <MainPagePage>
@@ -40,16 +53,7 @@ const MainPage = () => {
         </LoadingContainer>
       ) : (
         <MainPageBody>
-          <Suspense
-            fallback={
-              <LoadingContainer>
-                <LoadingText>LOADING...</LoadingText>
-                <LoadingImg src={gif} alt="loading..." />
-              </LoadingContainer>
-            }
-          >
-            <CardContainer optionSelected={optionSelected} />
-          </Suspense>
+          <CardContainer optionSelected={optionSelected} />
         </MainPageBody>
       )}
     </MainPagePage>

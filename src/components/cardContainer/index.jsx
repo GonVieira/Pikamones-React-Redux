@@ -68,8 +68,8 @@ const CardContainer = (optionSelected) => {
       {done ? (
         <>
           <CardContainerBody>
-            {currentPosts.map((values) => {
-              return <Card poke={values} />;
+            {currentPosts.map((values, index) => {
+              return <Card poke={values} key={values + index}/>;
             })}
           </CardContainerBody>
           <CardContainerFooter>
